@@ -1,5 +1,4 @@
 
-
 import java.util.Scanner;
 
 /**
@@ -10,12 +9,30 @@ public class NCSystem {
 
     public static Scanner sc = new Scanner(System.in);
 
+    public final static void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+            // Handle any exceptions.
+        }
+    }
+
     public static void displayHeader(String title) {
+        clearConsole();
+
         int totalLength = 43;
         System.out.println("\n+-------------------------------------------+");
         int titleLength = title.length();
         int leftPadding = (totalLength - titleLength) / 2;
-        System.out.printf("|%" + leftPadding + "s%s%" + (totalLength - leftPadding - titleLength) + "s|\n", "", title, "");
+        System.out.printf("|%" + leftPadding + "s%s%" + (totalLength - leftPadding - titleLength) + "s|\n", "", title,
+                "");
         System.out.println("+-------------------------------------------+\n");
     }
 
@@ -47,7 +64,7 @@ public class NCSystem {
     public static void Decimal() {
         try {
             displayHeader("Decimal Converter ");
-            System.out.print("\nEnter a Decimal number: ");
+            System.out.print("\nEnter a Decimal number : ");
             int num = sc.nextInt();
             if (num < 0) {
                 System.out.println("\t\tInvalid Input...\n");
@@ -64,13 +81,13 @@ public class NCSystem {
             }
 
             String binary = Integer.toBinaryString(num);
-            System.out.println("\n\tBinary Number: " + binary);
+            System.out.println("\n\n\tBinary Number\t\t: " + binary);
 
             String octal = Integer.toOctalString(num);
-            System.out.println("\tOctal Number : " + octal);
+            System.out.println("\n\tOctal Number\t\t: " + octal);
 
             String hex = Integer.toHexString(num);
-            System.out.println("\tHexadecimal Number : " + hex);
+            System.out.println("\n\tHexadecimal Number\t: " + hex);
 
             returnHome("D");
 
@@ -83,7 +100,7 @@ public class NCSystem {
     public static void Binary() {
         try {
             displayHeader("Binary Converter ");
-            System.out.print("\nEnter a Binary number: ");
+            System.out.print("\nEnter a Binary number : ");
             String binaryInput = sc.next();
 
             if (!binaryInput.matches("[01]+")) {
@@ -93,60 +110,58 @@ public class NCSystem {
                 switch (ans) {
                     case 'Y' -> Binary();
                     case 'N' -> Home();
-                    default -> throw new AssertionError();
+                    default -> Binary();
                 }
             }
 
             int num = Integer.parseInt(binaryInput, 2);
 
-            System.out.println("\n\tDecimal Number: " + num);
+            System.out.println("\n\n\tDecimal Number\t\t: " + num);
 
             String octal = Integer.toOctalString(num);
-            System.out.println("\tOctal Number : " + octal);
+            System.out.println("\n\tOctal Number\t\t: " + octal);
 
             String hex = Integer.toHexString(num);
-            System.out.println("\tHexadecimal Number : " + hex);
+            System.out.println("\n\tHexadecimal Number\t: " + hex);
 
             returnHome("B");
 
         } catch (Exception e) {
             System.out.println("Enter a valid value ..\n ");
-            Binary();
         }
     }
 
     public static void Octal() {
         try {
             displayHeader("Octal Converter ");
-            System.out.print("\nEnter a Octal number: ");
+            System.out.print("\nEnter a Octal number : ");
             String octalInput = sc.next();
 
             if (!octalInput.matches("[0-7]+")) {
-                System.out.println("\t\tInvalid Input... ");
+                System.out.println("\n\t\tInvalid Input...\n ");
                 System.out.print("Do you want Input number again (Y/N) -> ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
-                    case 'Y' -> Binary();
+                    case 'Y' -> Octal();
                     case 'N' -> Home();
-                    default -> throw new AssertionError();
+                    default -> Octal();
                 }
             }
 
             int num = Integer.parseInt(octalInput, 8);
 
-            System.out.println("\n\tDecimal Number: " + num);
+            System.out.println("\n\n\tDecimal Number\t\t: " + num);
 
             String binary = Integer.toBinaryString(num);
-            System.out.println("\n\tBinary Number: " + binary);
+            System.out.println("\n\tBinary Number\t\t: " + binary);
 
             String hex = Integer.toHexString(num);
-            System.out.println("\tHexadecimal Number : " + hex);
+            System.out.println("\n\tHexadecimal Number\t: " + hex);
 
             returnHome("O");
 
         } catch (Exception e) {
             System.out.println("Enter a valid value ..\n ");
-            Octal();
         }
 
     }
@@ -156,35 +171,34 @@ public class NCSystem {
 
             displayHeader("HexaDecimal Converter ");
 
-            System.out.print("\nEnter a Hexadecimal number: ");
+            System.out.print("\nEnter a Hexadecimal number : ");
             String hexInput = sc.next();
 
             if (!hexInput.matches("[0-9A-Fa-f]+")) {
-                System.out.println("\t\tInvalid Input...");
+                System.out.println("\n\t\tInvalid Input...\n");
                 System.out.print("Do you want Input number again (Y/N) ->  ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
                     case 'Y' -> Hexadecimal();
                     case 'N' -> Home();
-                    default -> throw new AssertionError();
+                    default -> Hexadecimal();
                 }
             }
 
             int num = Integer.parseInt(hexInput, 16);
 
-            System.out.println("\n\tDecimal Number: " + num);
+            System.out.println("\n\n\tDecimal Number\t: " + num);
 
             String binary = Integer.toBinaryString(num);
-            System.out.println("\tBinary Number : " + binary);
+            System.out.println("\n\tBinary Number\t: " + binary);
 
             String octal = Integer.toOctalString(num);
-            System.out.println("\tOctal Number : " + octal);
+            System.out.println("\n\tOctal Number\t: " + octal);
 
             returnHome("H");
 
         } catch (Exception e) {
             System.out.println("Enter a valid value ..\n ");
-            Hexadecimal();
         }
 
     }
@@ -193,7 +207,8 @@ public class NCSystem {
 
         displayHeader("Roman Number Converter ");
 
-        System.out.println("\n\t[01] Decimal Number to Roman Number Converter\n\t[02] Roman Number to Decimal  Number Converter\n");
+        System.out.println(
+                "\n\t[01] Decimal Number to Roman Number Converter\n\n\t[02] Roman Number to Decimal  Number Converter\n");
         System.out.print("\nEnter an option : ");
 
         String num = sc.next();
@@ -213,7 +228,7 @@ public class NCSystem {
             System.out.print("Enter an Decimal Number : ");
             int num = sc.nextInt();
             if (num < 0) {
-                System.out.println("\t\tInvalid Input...\n");
+                System.out.println("\n\t\tInvalid Input...\n");
                 System.out.print("Do you want Input number again (Y/N) ->  ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
@@ -232,7 +247,6 @@ public class NCSystem {
 
         } catch (Exception e) {
             System.out.println("Enter a valid value ..\n ");
-            DRConverter();
         }
     }
 
@@ -243,7 +257,7 @@ public class NCSystem {
             System.out.print("Enter an Roman Number : ");
             String roman = sc.next();
             if (roman.matches("^(?i:M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")) {
-                System.out.print("\t\tInvalid Input...\nDo you want Input number again (Y/N) -> ");
+                System.out.print("\n\t\tInvalid Input...\n\nDo you want Input number again (Y/N) -> ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
                     case 'Y' -> RDConverter();
@@ -259,13 +273,12 @@ public class NCSystem {
 
         } catch (Exception e) {
             System.out.println("Enter a valid value ..\n ");
-            DRConverter();
         }
     }
 
     public static String convertToRoman(int number) {
-        int[] decimalValues = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-        String[] romanSymbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] decimalValues = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+        String[] romanSymbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
         StringBuilder romanNumeral = new StringBuilder();
 
@@ -279,8 +292,8 @@ public class NCSystem {
     }
 
     public static int convertToDecimal(String roman) {
-        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+        String[] symbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
         int i = 0;
         int decimal = 0;
@@ -295,6 +308,8 @@ public class NCSystem {
     }
 
     public static void Home() {
+        clearConsole();
+
         System.out.println("\n\t\t\t\t\t __   ______             __           \n"
                 + "\t\t\t\t\t|  \\ /      \\           |  \\          \n"
                 + "\t\t\t\t\t \\$$|  $$$$$$\\  ______  | $$  _______ \n"
@@ -306,16 +321,19 @@ public class NCSystem {
                 + "\t\t\t\t\t \\$$  \\$$$$$$   \\$$$$$$$ \\$$  \\$$$$$$$\n"
                 + "\t\t\t\t\t                                     ");
 
-        System.out.println("  _   _                       _                         ____                                         _                 \n"
-                + " | \\ | |  _   _   _ __ ___   | |__     ___   _ __      / ___|   ___    _ __   __   __   ___   _ __  | |_    ___   _ __ \n"
-                + " |  \\| | | | | | | '_ ` _ \\  | '_ \\   / _ \\ | '__|    | |      / _ \\  | '_ \\  \\ \\ / /  / _ \\ | '__| | __|  / _ \\ | '__|\n"
-                + " | |\\  | | |_| | | | | | | | | |_) | |  __/ | |       | |___  | (_) | | | | |  \\ V /  |  __/ | |    | |_  |  __/ | |   \n"
-                + " |_| \\_|  \\__,_| |_| |_| |_| |_.__/   \\___| |_|        \\____|  \\___/  |_| |_|   \\_/    \\___| |_|     \\__|  \\___| |_|   \n"
-                + "                                                                                                                       ");
-        System.out.println("=======================================================================================================================\n");
+        System.out.println(
+                "  _   _                       _                         ____                                         _                 \n"
+                        + " | \\ | |  _   _   _ __ ___   | |__     ___   _ __      / ___|   ___    _ __   __   __   ___   _ __  | |_    ___   _ __ \n"
+                        + " |  \\| | | | | | | '_ ` _ \\  | '_ \\   / _ \\ | '__|    | |      / _ \\  | '_ \\  \\ \\ / /  / _ \\ | '__| | __|  / _ \\ | '__|\n"
+                        + " | |\\  | | |_| | | | | | | | | |_) | |  __/ | |       | |___  | (_) | | | | |  \\ V /  |  __/ | |    | |_  |  __/ | |   \n"
+                        + " |_| \\_|  \\__,_| |_| |_| |_| |_.__/   \\___| |_|        \\____|  \\___/  |_| |_|   \\_/    \\___| |_|     \\__|  \\___| |_|   \n"
+                        + "                                                                                                                       ");
+        System.out.println(
+                "=======================================================================================================================\n");
 
-        System.out.println("\n\t[01] Decimal Conveter\n\t[02] Binary Conveter\n\t[03] Octal Conveter\n\t[04] Hexadecimal Conveter\n\t[05] Roman Number Conveter");
-        System.out.print("\nEnter Option -> ");
+        System.out.println(
+                "\n\n\t[01] Decimal Conveter\n\n\t[02] Binary Conveter\n\n\t[03] Octal Conveter\n\n\t[04] Hexadecimal Conveter\n\n\t[05] Roman Number Conveter");
+        System.out.print("\n\n\nEnter Option -> ");
         String num = sc.next();
 
         switch (num) {
