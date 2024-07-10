@@ -67,7 +67,7 @@ public class NCSystem {
             System.out.print("\nEnter a Decimal number : ");
             int num = sc.nextInt();
             if (num < 0) {
-                System.out.println("\t\tInvalid Input...\n");
+                System.out.println("\n\t\tInvalid Input... \n\n");
                 System.out.print("Do you want Input number again (Y/N) ->  ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
@@ -80,20 +80,19 @@ public class NCSystem {
                 }
             }
 
-            String binary = Integer.toBinaryString(num);
+            String binary = convertToBinary(num);
             System.out.println("\n\n\tBinary Number\t\t: " + binary);
 
-            String octal = Integer.toOctalString(num);
+            String octal = convertToOctal(num);
             System.out.println("\n\tOctal Number\t\t: " + octal);
 
-            String hex = Integer.toHexString(num);
+            String hex = convertToHex(num);
             System.out.println("\n\tHexadecimal Number\t: " + hex);
 
             returnHome("D");
 
         } catch (Exception e) {
             System.out.println("Enter a valid Value ..\n ");
-            Decimal();
         }
     }
 
@@ -104,7 +103,7 @@ public class NCSystem {
             String binaryInput = sc.next();
 
             if (!binaryInput.matches("[01]+")) {
-                System.out.println("\t\tInvalid Input... ");
+                System.out.println("\n\t\tInvalid Input... \n\n");
                 System.out.print("Do you want Input number again (Y/N) ->  ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
@@ -118,16 +117,16 @@ public class NCSystem {
 
             System.out.println("\n\n\tDecimal Number\t\t: " + num);
 
-            String octal = Integer.toOctalString(num);
+            String octal = convertToOctal(num);
             System.out.println("\n\tOctal Number\t\t: " + octal);
 
-            String hex = Integer.toHexString(num);
+            String hex = convertToHex(num);
             System.out.println("\n\tHexadecimal Number\t: " + hex);
 
             returnHome("B");
 
         } catch (Exception e) {
-            System.out.println("Enter a valid value ..\n ");
+            System.out.println("Enter a valid value ..\n " + e);
         }
     }
 
@@ -138,7 +137,7 @@ public class NCSystem {
             String octalInput = sc.next();
 
             if (!octalInput.matches("[0-7]+")) {
-                System.out.println("\n\t\tInvalid Input...\n ");
+                System.out.println("\n\t\tInvalid Input...\n\n ");
                 System.out.print("Do you want Input number again (Y/N) -> ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
@@ -152,10 +151,10 @@ public class NCSystem {
 
             System.out.println("\n\n\tDecimal Number\t\t: " + num);
 
-            String binary = Integer.toBinaryString(num);
+            String binary = convertToBinary(num);
             System.out.println("\n\tBinary Number\t\t: " + binary);
 
-            String hex = Integer.toHexString(num);
+            String hex = convertToHex(num);
             System.out.println("\n\tHexadecimal Number\t: " + hex);
 
             returnHome("O");
@@ -175,7 +174,7 @@ public class NCSystem {
             String hexInput = sc.next();
 
             if (!hexInput.matches("[0-9A-Fa-f]+")) {
-                System.out.println("\n\t\tInvalid Input...\n");
+                System.out.println("\n\t\tInvalid Input... \n\n");
                 System.out.print("Do you want Input number again (Y/N) ->  ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
@@ -186,13 +185,12 @@ public class NCSystem {
             }
 
             int num = Integer.parseInt(hexInput, 16);
-
             System.out.println("\n\n\tDecimal Number\t: " + num);
 
-            String binary = Integer.toBinaryString(num);
+            String binary = convertToBinary(num);
             System.out.println("\n\tBinary Number\t: " + binary);
 
-            String octal = Integer.toOctalString(num);
+            String octal = convertToOctal(num);
             System.out.println("\n\tOctal Number\t: " + octal);
 
             returnHome("H");
@@ -228,7 +226,7 @@ public class NCSystem {
             System.out.print("Enter an Decimal Number : ");
             int num = sc.nextInt();
             if (num < 0) {
-                System.out.println("\n\t\tInvalid Input...\n");
+                System.out.println("\n\t\tInvalid Input... \n\n");
                 System.out.print("Do you want Input number again (Y/N) ->  ");
                 char ans = sc.next().toUpperCase().charAt(0);
                 switch (ans) {
@@ -274,6 +272,42 @@ public class NCSystem {
         } catch (Exception e) {
             System.out.println("Enter a valid value ..\n ");
         }
+    }
+    public static String convertToBinary(int num) {
+        String binary = "";
+        if (num == 0) {
+            return "0";
+        }
+        while (num > 0) {
+            binary = (num % 2) + binary;
+            num = num / 2;
+        }
+        return binary;
+    }
+
+    public static String convertToOctal(int num) {
+        String octal = "";
+        if (num == 0) {
+            return "0";
+        }
+        while (num > 0) {
+            octal = (num % 8) + octal;
+            num = num / 8;
+        }
+        return octal;
+    }
+
+    public static String convertToHex(int num) {
+        String hex = "";
+        char[] hexDigits = "0123456789ABCDEF".toCharArray();
+        if (num == 0) {
+            return "0";
+        }
+        while (num > 0) {
+            hex = hexDigits[num % 16] + hex;
+            num = num / 16;
+        }
+        return hex;
     }
 
     public static String convertToRoman(int number) {
