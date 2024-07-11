@@ -209,7 +209,7 @@ public class NCSystemLoop {
 
                         System.out.print("\n\nEnter a Octal number : ");
                         String octalInput = sc.next();
-                         
+
                         boolean isOctal = false;
                         for (int i = 0; i < octalInput.length(); i++) {
                             char digit = octalInput.charAt(i);
@@ -290,11 +290,12 @@ public class NCSystemLoop {
                         boolean isHex = false;
                         for (int i = 0; i < hexInput.length(); i++) {
                             char digit = hexInput.charAt(i);
-                            if ((digit < '0' || digit > '9') && (digit < 'A' || digit > 'F') && (digit < 'a' || digit > 'f')) {
+                            if ((digit < '0' || digit > '9') && (digit < 'A' || digit > 'F')
+                                    && (digit < 'a' || digit > 'f')) {
                                 isHex = true;
                                 break;
                             }
-                           
+
                         }
                         if (isHex) {
                             System.out.println("\n\t\tInvalid Input... \n");
@@ -312,8 +313,7 @@ public class NCSystemLoop {
                             int value = digit - '0';
                             decimal = decimal * 16 + value;
                         }
-                        int tem =decimal;
-
+                        int tem = decimal;
 
                         // Convert to binary
                         String binary = "";
@@ -371,40 +371,52 @@ public class NCSystemLoop {
                                     System.out.println("\n+--------------------------------------------+");
                                     System.out.println("|  Decimal Number to Roman Number Converter  |");
                                     System.out.println("+--------------------------------------------+\n");
-                                    System.out.print("\nEnter a Decimal Number : ");
-                                    int decimalInput = sc.nextInt();
-                                    if (decimalInput < 0) {
+                                    try {
+                                        System.out.print("\nEnter a Decimal Number : ");
+                                        int decimalInput = sc.nextInt();
+                                        if (decimalInput < 0) {
+                                            System.out.println("\n\t\tInvalid Input... \n");
+                                            System.out.print("Do you want Input number again (Y/N) ->  ");
+                                            char ans = sc.next().toUpperCase().charAt(0);
+                                            if (ans == 'Y') {
+                                                continue;
+                                            } else {
+                                                continue Roman;
+                                            }
+                                        }
+
+                                        int[] decimalValues = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+                                        String[] romanSymbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX",
+                                                "V",
+                                                "IV", "I" };
+
+                                        StringBuilder romanNumeral = new StringBuilder();
+
+                                        for (int i = 0; i < decimalValues.length; i++) {
+                                            while (decimalInput >= decimalValues[i]) {
+                                                romanNumeral.append(romanSymbols[i]);
+                                                decimalInput -= decimalValues[i];
+                                            }
+                                        }
+                                        System.out.println("\n\n\tRoman Number\t: " + romanNumeral.toString());
+                                        while (true) {
+                                            System.out.print("\n\nDo you want to go to the Home page (Y/N) -> ");
+                                            char ans = sc.next().toUpperCase().charAt(0);
+                                            if (ans == 'Y') {
+                                                continue Home;
+                                            } else {
+                                                break;
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        sc.nextLine();
                                         System.out.println("\n\t\tInvalid Input... \n");
-                                        System.out.print("Do you want Input number again (Y/N) ->  ");
-                                        char ans = sc.next().toUpperCase().charAt(0);
-                                        if (ans == 'Y') {
+                                        System.out.print("Do you want to input the number again (Y/N) ->  ");
+                                        String ans = sc.next().toUpperCase();
+                                        if (ans.equals("Y")) {
                                             continue;
                                         } else {
-                                            continue Roman;
-                                        }
-                                    }
-
-                                    int[] decimalValues = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-                                    String[] romanSymbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX",
-                                            "V",
-                                            "IV", "I" };
-
-                                    StringBuilder romanNumeral = new StringBuilder();
-
-                                    for (int i = 0; i < decimalValues.length; i++) {
-                                        while (decimalInput >= decimalValues[i]) {
-                                            romanNumeral.append(romanSymbols[i]);
-                                            decimalInput -= decimalValues[i];
-                                        }
-                                    }
-                                    System.out.println("\n\n\tRoman Number\t: " + romanNumeral.toString());
-                                    while (true) {
-                                        System.out.print("\n\nDo you want to go to the Home page (Y/N) -> ");
-                                        char ans = sc.next().toUpperCase().charAt(0);
-                                        if (ans == 'Y') {
                                             continue Home;
-                                        } else {
-                                            break;
                                         }
                                     }
                                 }
