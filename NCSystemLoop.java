@@ -117,7 +117,10 @@ public class NCSystemLoop {
                                 if (ans.equals("Y")) {
                                     continue Home;
                                 } else {
-                                    break;
+                                    sc.close();
+                                    clearConsole();
+                                    System.exit(0);
+
                                 }
                             }
                         } catch (Exception e) {
@@ -195,7 +198,10 @@ public class NCSystemLoop {
                             if (ans == 'Y') {
                                 continue Home;
                             } else {
-                                break;
+                                sc.close();
+                                clearConsole();
+                                System.exit(0);
+
                             }
                         }
                     }
@@ -273,7 +279,10 @@ public class NCSystemLoop {
                             if (ans == 'Y') {
                                 continue Home;
                             } else {
-                                break;
+                                sc.close();
+                                clearConsole();
+                                System.exit(0);
+
                             }
                         }
                     }
@@ -348,7 +357,10 @@ public class NCSystemLoop {
                             if (ans == 'Y') {
                                 continue Home;
                             } else {
-                                break;
+                                sc.close();
+                                clearConsole();
+                                System.exit(0);
+
                             }
                         }
                     }
@@ -405,7 +417,9 @@ public class NCSystemLoop {
                                             if (ans == 'Y') {
                                                 continue Home;
                                             } else {
-                                                break;
+                                                sc.close();
+                                                clearConsole();
+                                                System.exit(0);
                                             }
                                         }
                                     } catch (Exception e) {
@@ -416,39 +430,40 @@ public class NCSystemLoop {
                                         if (ans.equals("Y")) {
                                             continue;
                                         } else {
-                                            continue Home;
+                                            continue Roman;
                                         }
                                     }
                                 }
 
                             case "2":
-                                RD: while (true) {
+                                while (true) {
                                     clearConsole();
                                     System.out.println("\n+--------------------------------------------+");
                                     System.out.println("|  Roman Number to Decimal Number Converter  |");
                                     System.out.println("+--------------------------------------------+\n");
+
                                     try {
-                                        System.out.print("\nEnter a Decimal Number : ");
-                                        String roman = sc.next();
-                                        if (roman
-                                                .matches(
-                                                        "^(?i:M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")) {
+                                        System.out.print("\nEnter a Roman Number : ");
+                                        String roman = sc.next().toUpperCase();
+
+                                        // Validate Roman numeral input
+                                        if (!roman.matches(
+                                                "^(?i:M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")) {
                                             System.out.println("\n\t\tInvalid Input... \n");
-                                            System.out.print("Do you want Input number again (Y/N) ->  ");
-                                            char ans = sc.next().toUpperCase().charAt(0);
-                                            if (ans == 'Y') {
-                                                continue;
-                                            } else {
+                                            System.out.print("Do you want to input the number again (Y/N) ->  ");
+                                            String ans = sc.next().toUpperCase();
+                                            if (!ans.equals("Y")) {
                                                 continue Roman;
                                             }
+                                            continue;
                                         }
 
-                                        int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+                                        // Conversion from Roman to Decimal
+                                        int decimal = 0;
+                                        int i = 0;
                                         String[] symbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V",
                                                 "IV", "I" };
-
-                                        int i = 0;
-                                        int decimal = 0;
+                                        int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
                                         for (int j = 0; j < symbols.length; j++) {
                                             while (roman.startsWith(symbols[j], i)) {
@@ -456,26 +471,31 @@ public class NCSystemLoop {
                                                 i += symbols[j].length();
                                             }
                                         }
+
+                                        // Output decimal number
                                         System.out.println("\n\n\tDecimal Number\t: " + decimal);
+
                                         while (true) {
                                             System.out.print("\n\nDo you want to go to the Home page (Y/N) -> ");
                                             char ans = sc.next().toUpperCase().charAt(0);
                                             if (ans == 'Y') {
                                                 continue Home;
                                             } else {
-                                                break;
+                                                sc.close();
+                                                clearConsole();
+                                                System.exit(0);
                                             }
                                         }
+
                                     } catch (Exception e) {
                                         sc.nextLine();
                                         System.out.println("\n\t\tInvalid Input... \n");
                                         System.out.print("Do you want to input the number again (Y/N) ->  ");
                                         String ans = sc.next().toUpperCase();
-                                        if (ans.equals("Y")) {
-                                            continue;
-                                        } else {
+                                        if (!ans.equals("Y")) {
                                             continue Home;
                                         }
+                                        continue;
                                     }
                                 }
 
@@ -498,6 +518,9 @@ public class NCSystemLoop {
                     if (ans == 'Y') {
                         continue Home;
                     } else {
+                        sc.close();
+                        clearConsole();
+                        System.exit(0);
                         break;
                     }
             }
